@@ -229,7 +229,6 @@ function TokenCardComponent({ token }: TokenCardProps) {
             </div>
           </div>
 
-         
           <div className="flex items-center justify-between text-[11px]">
            
             <div className="flex items-center gap-2 text-zinc-200">
