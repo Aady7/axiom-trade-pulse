@@ -130,7 +130,7 @@ export default function TokenTablePage() {
       </div>
 
       {/* Columns layout */}
-      <section className="border border-zinc-800 overflow-hidden min-h-0 md:h-[calc(100vh-160px)]">
+      <section className="border border-zinc-800 overflow-hidden min-h-0 md:h-[calc(100vh-160px)] md:grid md:grid-cols-3 md:gap-0">
         {/* Mobile: show only active column */}
         <div className="md:hidden">
           {columns
@@ -148,18 +148,17 @@ export default function TokenTablePage() {
         </div>
 
         {/* Desktop: show all columns */}
-        <div className="hidden md:grid md:grid-cols-3 gap-0 min-h-0">
-          {(isLoading ? columns.map((col) => ({ ...col, tokens: [] })) : columns).map((col) => (
+        {(isLoading ? columns.map((col) => ({ ...col, tokens: [] })) : columns).map((col) => (
+          <div key={col.columnKey} className="hidden md:block min-h-0">
             <TokenColumn
-              key={col.columnKey}
               title={col.title}
               columnKey={col.columnKey}
               tokens={col.tokens}
               isLoading={isLoading}
               skeletonComponent={() => <TokenCardSkeleton />}
             />
-          ))}
-        </div>
+          </div>
+        ))}
       </section>
 
       {/* Token Details Dialog - Lazy loaded with Suspense */}
