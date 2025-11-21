@@ -22,7 +22,9 @@ import {
   Crosshair,
   Ghost,
   Boxes,
+  Zap,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface TokenCardProps {
   token: Token;
@@ -136,7 +138,7 @@ function TokenCardComponent({ token }: TokenCardProps) {
 
   return (
     <div
-      className="rounded-none   bg-[#05050b] px-3 py-2 shadow-sm shadow-black/40  hover:bg-[#272433] transition-colors cursor-pointer"
+      className="group rounded-none bg-[#05050b] px-3 py-2 shadow-sm shadow-black/40 hover:bg-[#272433] transition-colors cursor-pointer relative"
       onClick={handleCardClick}
     >
       {/* Main flex container: Logo on left, Row A/B/C on right */}
@@ -325,34 +327,54 @@ function TokenCardComponent({ token }: TokenCardProps) {
         {addressLabel}
       </div>
 
-      {/* Row E: bottom badges */}
-      {token.badges && token.badges.length > 0 && (
-        <div className="mt-2 flex flex-wrap gap-1">
-          {token.badges.map((badge) => {
-            let base =
-              "inline-flex items-center gap-1 rounded-full px-2 py-[3px] text-[10px] font-medium";
-            if (badge.tone === "positive") {
-              base += " bg-zinc-800 text-emerald-400 ";
-            } else if (badge.tone === "negative") {
-              base += " bg-zinc-800 text-red-400 ";
-            } else if (badge.tone === "status") {
-              base += " bg-emerald-500 text-black border border-emerald-500";
-            } else {
-              base += " bg-zinc-800 text-zinc-200 border border-zinc-700/80";
-            }
+      {/* Row E: bottom badges and 0 SOL button */}
+      <div className="mt-2 flex items-center justify-between gap-2">
+        {token.badges && token.badges.length > 0 && (
+          <div className="flex flex-wrap gap-1 flex-1">
+            {token.badges.map((badge) => {
+              let base =
+                "inline-flex items-center gap-1 rounded-full px-2 py-[3px] text-[10px] font-medium";
+              if (badge.tone === "positive") {
+                base += " bg-zinc-800 text-emerald-400 ";
+              } else if (badge.tone === "negative") {
+                base += " bg-zinc-800 text-red-400 ";
+              } else if (badge.tone === "status") {
+                base += " bg-emerald-500 text-black border border-emerald-500";
+              } else {
+                base += " bg-zinc-800 text-zinc-200 border border-zinc-700/80";
+              }
 
-            return (
-              <span key={badge.id} className={base}>
-                {badge.icon === "risk" && <UserStar className="h-4 w-4" />}
-                {badge.icon === "time" && <ChefHat className="h-4 w-4" />}
-                {badge.icon === "growth" && <Crosshair className="h-4 w-4" />}
-                {badge.icon === "status" && <Ghost className="h-4 w-4" />}
-                <span>{badge.label}</span>
-              </span>
-            );
-          })}
+              return (
+                <span key={badge.id} className={base}>
+                  {badge.icon === "risk" && <UserStar className="h-4 w-4" />}
+                  {badge.icon === "time" && <ChefHat className="h-4 w-4" />}
+                  {badge.icon === "growth" && <Crosshair className="h-4 w-4" />}
+                  {badge.icon === "status" && <Ghost className="h-4 w-4" />}
+                  <span>{badge.label}</span>
+                </span>
+              );
+            })}
+          </div>
+        )}
+        
+        {/* 0 SOL Button - Only visible on hover, positioned at bottom right */}
+        <div className="md:opacity-0 group-hover:opacity-100 transition-opacity duration-200 shrink-0 absolute bottom-4 md:right-4 right-0 px-1 ">
+          <Button
+            variant="sol"
+            size="xs"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full px-2.5 py-1 md:h-7 shadow-lg"
+            onClick={(e) => {
+              e.stopPropagation();
+              // Handle buy/trade action 
+              console.log("Buy token:", token.id);
+            }}
+          >
+            <Zap className="h-3 w-3" />
+            <span className="text-xs font-semibold">0 SOL</span>
+          </Button>
         </div>
-      )}
+      </div>
+
     </div>
   );
 }
