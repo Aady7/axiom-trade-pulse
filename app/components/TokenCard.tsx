@@ -231,7 +231,7 @@ function TokenCardComponent({ token }: TokenCardProps) {
 
          
           <div className="flex items-center justify-between text-[11px]">
-            {/* left side: time + coin + hand + search */}
+           
             <div className="flex items-center gap-2 text-zinc-200">
               <InfoToolTip label="Token age">
                 <span className="font-medium text-emerald-400">{timeLabel}</span>
