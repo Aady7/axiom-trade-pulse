@@ -247,7 +247,7 @@ function TokenCardComponent({ token }: TokenCardProps) {
              
             </div>
 
-            {/* right side: F 0.917 + TX 101 + sparkline */}
+           
             <div className="flex items-center gap-2 text-[11px] shrink-0">
               <InfoToolTip label="Global Fees Paid">
                 <div className="flex items-center gap-0.5">
