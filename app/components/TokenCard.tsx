@@ -229,7 +229,7 @@ function TokenCardComponent({ token }: TokenCardProps) {
             </div>
           </div>
 
-          {/* Row B: time + icons LEFT, F / TX + sparkline RIGHT */}
+         
           <div className="flex items-center justify-between text-[11px]">
             {/* left side: time + coin + hand + search */}
             <div className="flex items-center gap-2 text-zinc-200">
